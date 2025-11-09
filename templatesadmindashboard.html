@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Адмін-панель - BookStore{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">Адмін-панель</h1>
+    
+    <!-- Статистика -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-blue-600">{{ feedback_count }}</div>
+            <div class="text-gray-600">Відгуків</div>
+            <a href="/admin/feedback" class="text-blue-500 hover:text-blue-700 text-sm">Переглянути</a>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-green-600">{{ products_count }}</div>
+            <div class="text-gray-600">Товарів</div>
+            <a href="/admin/products" class="text-blue-500 hover:text-blue-700 text-sm">Керувати</a>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-purple-600">{{ orders_count }}</div>
+            <div class="text-gray-600">Замовлень</div>
+            <a href="/admin/orders" class="text-blue-500 hover:text-blue-700 text-sm">Переглянути</a>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+            <div class="text-3xl font-bold text-yellow-600">{{ customers_count }}</div>
+            <div class="text-gray-600">Клієнтів</div>
+            <a href="/admin/customers" class="text-blue-500 hover:text-blue-700 text-sm">Переглянути</a>
+        </div>
+    </div>
+
+    <!-- Швидкі посилання -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">Швидкий доступ</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/admin/feedback" class="bg-blue-100 text-blue-700 p-4 rounded-lg hover:bg-blue-200 transition duration-300">
+                <div class="font-bold">Відгуки</div>
+                <div class="text-sm">Керування відгуками клієнтів</div>
+            </a>
+            
+            <a href="/admin/products" class="bg-green-100 text-green-700 p-4 rounded-lg hover:bg-green-200 transition duration-300">
+                <div class="font-bold">Товари</div>
+                <div class="text-sm">Додавання та редагування товарів</div>
+            </a>
+            
+            <a href="/admin/orders" class="bg-purple-100 text-purple-700 p-4 rounded-lg hover:bg-purple-200 transition duration-300">
+                <div class="font-bold">Замовлення</div>
+                <div class="text-sm">Перегляд та обробка замовлень</div>
+            </a>
+            
+            <a href="/admin/customers" class="bg-yellow-100 text-yellow-700 p-4 rounded-lg hover:bg-yellow-200 transition duration-300">
+                <div class="font-bold">Клієнти</div>
+                <div class="text-sm">База даних клієнтів</div>
+            </a>
+            
+            <a href="/admin/products/add" class="bg-red-100 text-red-700 p-4 rounded-lg hover:bg-red-200 transition duration-300">
+                <div class="font-bold">Додати товар</div>
+                <div class="text-sm">Додати новий товар до каталогу</div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

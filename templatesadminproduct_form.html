@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Додати товар - BookStore{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">Додати новий товар</h1>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-gray-700 mb-2" for="title">Назва книги *</label>
+                <input type="text" id="title" name="title" required 
+                       class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 mb-2" for="author">Автор *</label>
+                <input type="text" id="author" name="author" required
+                       class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+            </div>
+            
+            <div>
+                <label class="block text-gray-700 mb-2" for="description">Опис</label>
+                <textarea id="description" name="description" rows="3"
+                          class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="price">Ціна *</label>
+                    <input type="number" id="price" name="price" step="0.01" min="0" required
+                           class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 mb-2" for="stock_quantity">Кількість на складі *</label>
+                    <input type="number" id="stock_quantity" name="stock_quantity" min="0" required
+                           class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="category">Категорія *</label>
+                    <select id="category" name="category" required
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                        <option value="">Оберіть категорію</option>
+                        <option value="Художня література">Художня література</option>
+                        <option value="Наукова література">Наукова література</option>
+                        <option value="Дитячі книги">Дитячі книги</option>
+                        <option value="Психологія">Психологія</option>
+                        <option value="Бізнес">Бізнес</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 mb-2" for="image_url">Посилання на зображення</label>
+                    <input type="text" id="image_url" name="image_url"
+                           class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+            
+            <div class="flex space-x-4 pt-4">
+                <button type="submit" class="flex-1 bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700">
+                    Додати товар
+                </button>
+                <a href="/admin/products" class="flex-1 bg-gray-500 text-white text-center py-3 rounded hover:bg-gray-600">
+                    Скасувати
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

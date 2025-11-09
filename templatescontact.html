@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Контакти - BookStore{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">Контакти</h1>
+    
+    <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Контактна інформація -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6">Наші контакти</h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="text-blue-500 text-xl mr-4">📍</div>
+                    <div>
+                        <h3 class="font-bold">Адреса</h3>
+                        <p class="text-gray-600">м. Київ, вул. Хрещатик, 22</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма зворотного зв'язку -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6">Написати нам</h2>
+            
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="name">Ім'я</label>
+                    <input type="text" id="name" class="w-full border rounded px-3 py-2">
+                </div>
+                
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 w-full">
+                    Надіслати повідомлення
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

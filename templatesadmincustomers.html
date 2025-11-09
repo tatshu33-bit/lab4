@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Клієнти - BookStore{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">База клієнтів</h1>
+    
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="p-6">
+            {% if customers %}
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="p-3 text-left">Ім'я</th>
+                            <th class="p-3 text-left">Email</th>
+                            <th class="p-3 text-left">Телефон</th>
+                            <th class="p-3 text-left">Адреса</th>
+                            <th class="p-3 text-left">Дата реєстрації</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in customers %}
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-medium">{{ customer['name'] }}</td>
+                            <td class="p-3">{{ customer['email'] }}</td>
+                            <td class="p-3">{{ customer['phone'] or 'Не вказано' }}</td>
+                            <td class="p-3">{{ customer['address'] or 'Не вказано' }}</td>
+                            <td class="p-3 text-sm text-gray-500">{{ customer['created_at'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-8">
+                <p class="text-gray-600">Клієнтів поки що немає</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Кошик - BookStore{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">Кошик покупок</h1>
+    
+    {% if cart_items %}
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="p-6">
+            <div class="space-y-4">
+                {% for item in cart_items %}
+                <div class="flex items-center justify-between border-b pb-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded flex items-center justify-center">
+                            <span class="text-2xl">{{ item.image_url or '📚' }}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">{{ item.title }}</h3>
+                            <p class="text-gray-600">{{ item.author }}</p>
+                            <p class="text-sm text-gray-500">Кількість: {{ item.quantity }}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-blue-600">{{ "%.2f"|format(item.price * item.quantity) }} грн</p>
+                        <a href="/remove_from_cart/{{ item.id }}" class="text-red-500 hover:text-red-700 text-sm">
+                            Видалити
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="mt-6 pt-6 border-t">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-xl font-bold">Загальна сума:</span>
+                    <span class="text-2xl font-bold text-blue-600">{{ "%.2f"|format(total) }} грн</span>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="/catalog" class="flex-1 bg-gray-500 text-white text-center py-3 rounded hover:bg-gray-600">
+                        Продовжити покупки
+                    </a>
+                    <a href="/checkout" class="flex-1 bg-blue-600 text-white text-center py-3 rounded hover:bg-blue-700">
+                        Оформити замовлення
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+        <div class="text-6xl mb-4">🛒</div>
+        <h2 class="text-2xl font-bold mb-4">Кошик порожній</h2>
+        <p class="text-gray-600 mb-6">Додайте товари до кошика, щоб зробити покупку</p>
+        <a href="/catalog" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+            Перейти до каталогу
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

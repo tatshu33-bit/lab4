@@ -1,0 +1,21 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Каталог - BookStore{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">Каталог книг</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-bold">Хіба ревуть воли...</h3>
+            <p class="text-gray-600">Панас Мирний</p>
+            <p class="text-blue-600 font-bold">250 грн</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-bold">Тигролови</h3>
+            <p class="text-gray-600">Іван Багряний</p>
+            <p class="text-blue-600 font-bold">280 грн</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
