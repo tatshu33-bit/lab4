@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: technomart_db
+    environment:
+      POSTGRES_DB: technomart
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d   # *.sql виконуються за алфавітом при першому запуску
+    restart: unless-stopped
+    networks: [db_network]
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: technomart_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on: [postgres]
+    restart: unless-stopped
+    networks: [db_network]
+
+volumes:
+  postgres_data:
+
+networks:
+  db_network:
+    driver: bridge
