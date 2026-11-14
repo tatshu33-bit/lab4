@@ -1,1 +1,30 @@
+digraph ER {
+  graph [rankdir=LR, splines=true, nodesep=0.5, ranksep=1.1, fontname="Helvetica", bgcolor="white"];
+  node  [shape=plain, fontname="Helvetica", fontsize=11];
+  edge  [fontname="Helvetica", fontsize=10, color="#44546a"];
 
+  regions    [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#f3e9ff"><tr><td bgcolor="#7e57c2"><font color="white"><b>REGIONS</b></font></td></tr><tr><td align="left"><u>region_id</u> PK</td></tr><tr><td align="left">region_name (UQ)</td></tr><tr><td align="left">region_code (UQ)</td></tr></table>>];
+  suppliers  [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eaf4ff"><tr><td bgcolor="#2f6fed"><font color="white"><b>SUPPLIERS</b></font></td></tr><tr><td align="left"><u>supplier_id</u> PK</td></tr><tr><td align="left">company_name</td></tr><tr><td align="left">contact_name, title</td></tr><tr><td align="left">address, city, postal_code</td></tr><tr><td align="left">phone, email, website</td></tr><tr><td align="left">region_id FK</td></tr></table>>];
+  categories [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eaf4ff"><tr><td bgcolor="#2f6fed"><font color="white"><b>CATEGORIES</b></font></td></tr><tr><td align="left"><u>category_id</u> PK</td></tr><tr><td align="left">category_name (UQ)</td></tr><tr><td align="left">description, picture_url</td></tr></table>>];
+  products   [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eaf4ff"><tr><td bgcolor="#2f6fed"><font color="white"><b>PRODUCTS</b></font></td></tr><tr><td align="left"><u>product_id</u> PK</td></tr><tr><td align="left">product_name</td></tr><tr><td align="left">unit_price ≥ 0</td></tr><tr><td align="left">units_in_stock ≥ 0</td></tr><tr><td align="left">units_on_order, reorder_level</td></tr><tr><td align="left">discontinued, description</td></tr><tr><td align="left">supplier_id FK, category_id FK</td></tr></table>>];
+  price_hist [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eaf4ff"><tr><td bgcolor="#607d8b"><font color="white"><b>PRODUCT_PRICE_HISTORY</b></font></td></tr><tr><td align="left"><u>history_id</u> PK</td></tr><tr><td align="left">product_id FK</td></tr><tr><td align="left">old_price, new_price</td></tr><tr><td align="left">changed_by, changed_at</td></tr></table>>];
+  order_items[label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#fff6e5"><tr><td bgcolor="#f39c12"><font color="white"><b>ORDER_ITEMS</b></font></td></tr><tr><td align="left"><u>order_item_id</u> PK</td></tr><tr><td align="left">order_id FK, product_id FK (UQ пара)</td></tr><tr><td align="left">unit_price, quantity &gt; 0</td></tr><tr><td align="left">discount 0..1</td></tr></table>>];
+  orders     [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#fff6e5"><tr><td bgcolor="#f39c12"><font color="white"><b>ORDERS</b></font></td></tr><tr><td align="left"><u>order_id</u> PK</td></tr><tr><td align="left">order_date, required_date, shipped_date</td></tr><tr><td align="left">ship_via, freight, ship_* (знімок адреси)</td></tr><tr><td align="left">order_status (CHECK)</td></tr><tr><td align="left">customer_id FK, employee_id FK, ship_region_id FK</td></tr></table>>];
+  customers  [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#e9f8ef"><tr><td bgcolor="#1e8e5a"><font color="white"><b>CUSTOMERS</b></font></td></tr><tr><td align="left"><u>customer_id</u> PK</td></tr><tr><td align="left">company_name, contact_name</td></tr><tr><td align="left">email (UQ), phone</td></tr><tr><td align="left">address, city, postal_code</td></tr><tr><td align="left">customer_type (CHECK), registration_date</td></tr><tr><td align="left">region_id FK</td></tr></table>>];
+  employees  [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#e9f8ef"><tr><td bgcolor="#1e8e5a"><font color="white"><b>EMPLOYEES</b></font></td></tr><tr><td align="left"><u>employee_id</u> PK</td></tr><tr><td align="left">last/first/middle_name, title</td></tr><tr><td align="left">birth_date, hire_date, salary</td></tr><tr><td align="left">email (UQ), phone, address, city</td></tr><tr><td align="left">region_id FK, reports_to FK (self)</td></tr></table>>];
+  users      [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#fdecec"><tr><td bgcolor="#d64545"><font color="white"><b>USERS</b></font></td></tr><tr><td align="left"><u>user_id</u> PK</td></tr><tr><td align="left">username (UQ), email (UQ)</td></tr><tr><td align="left">password_hash, role, is_active</td></tr></table>>];
+  activity_log[label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#fdecec"><tr><td bgcolor="#d64545"><font color="white"><b>ACTIVITY_LOG</b></font></td></tr><tr><td align="left"><u>log_id</u> PK</td></tr><tr><td align="left">user_id FK</td></tr><tr><td align="left">action, table_name, record_id</td></tr><tr><td align="left">details (JSONB), created_at</td></tr></table>>];
+
+  categories -> products   [label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  suppliers  -> products   [label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  products   -> price_hist [label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  customers  -> orders     [label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  employees  -> orders     [label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  orders     -> order_items[label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  products   -> order_items[label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+  employees  -> employees  [label="керує (reports_to)", arrowhead=crowodot, arrowtail=teeodot, dir=both];
+  regions    -> customers  [label="1 : N", arrowhead=crowodot, arrowtail=tee, dir=both];
+  regions    -> suppliers  [arrowhead=crowodot, arrowtail=tee, dir=both];
+  regions    -> employees  [arrowhead=crowodot, arrowtail=tee, dir=both];
+  users      -> activity_log [label="1 : N", arrowhead=crowodot, arrowtail=tee, dir=both];
+}
